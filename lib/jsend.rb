@@ -6,6 +6,7 @@ require 'json'
 require_relative 'jsend/success_response'
 require_relative 'jsend/fail_response'
 require_relative 'jsend/error_response'
+require_relative 'jsend/parser'
 
 module JSend
 
@@ -15,7 +16,7 @@ module JSend
 
   def parse(json)
     values = JSON.parse(json)
-    Response.class_for(values['status']).send(:from_hash, values)
+    Parser.parser_for(values['status']).response_from_hash(values)
   end
 
   def success(data)

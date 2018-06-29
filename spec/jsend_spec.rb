@@ -117,23 +117,36 @@ describe Jsend do
 
   end
 
-  describe 'Parser' do
+  describe 'parser' do
+
+    xit 'Does not parse an incorrect message' do
+      json_to_parse = {
+          random_field: 'banana',
+          crap: 'asereje'
+      }.to_json
+
+      jsend_message = JSend.parse(json_to_parse)
+
+    end
 
     context 'Success messages' do
 
-      xit 'Parses from JSON' do
+      it 'Parses from JSON' do
 
-        message = {
+        json_to_parse = {
             status: JSend::SUCCESS,
             data: data
-        }
-        json_to_parse = message.to_json
+        }.to_json
         expected_data = JSON.parse(data.to_json)
 
         jsend_message = JSend.parse(json_to_parse)
 
         expect(jsend_message.success?).to be true
         expect(jsend_message.data).to eq(expected_data)
+      end
+
+      xit 'Does not parses a message with non allowed fields' do
+
       end
 
     end

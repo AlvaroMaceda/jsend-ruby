@@ -2,19 +2,6 @@ module JSend
 
   class Response
 
-    def self.class_for(type)
-      case type
-      when JSend::SUCCESS
-        SucessResponse
-      when JSend::ERROR
-        ErrorResponse
-      when JSend::FAIL
-        FailResponse
-      else
-        raise 'Unsupported type of message'
-      end
-    end
-
     def to_json
       data = {status: @status, message: @message, code: @code, data: @data}
       relevant_data = data.keep_if { |_, v| !v.nil? }
