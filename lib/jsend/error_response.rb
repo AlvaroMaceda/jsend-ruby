@@ -13,9 +13,7 @@ module JSend
       @code = code
     end
 
-    def self.from_hash(hash)
-      puts 'From hash de success'
-    end
+    public_class_method :new
 
   end
 

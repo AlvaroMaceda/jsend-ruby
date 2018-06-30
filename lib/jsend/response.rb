@@ -20,8 +20,8 @@ module JSend
       @status == JSend::ERROR
     end
 
-  end
+    private_class_method :new
 
-  private_constant :Response
+  end
 
 end

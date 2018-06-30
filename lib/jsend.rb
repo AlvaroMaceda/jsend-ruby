@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "jsend/version"
+require 'jsend/version'
 require 'json'
 
 require_relative 'jsend/success_response'
