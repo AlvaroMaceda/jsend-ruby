@@ -117,15 +117,18 @@ describe Jsend do
 
   end
 
-  describe 'parser' do
+  describe '#parser' do
 
-    xit 'Does not parse an incorrect message' do
+    it 'Does not parse an incorrect message' do
+
       json_to_parse = {
           random_field: 'banana',
           crap: 'asereje'
       }.to_json
 
-      jsend_message = JSend.parse(json_to_parse)
+      expect {
+        JSend.parse(json_to_parse)
+      }.to raise_exception JSend::InvalidType
 
     end
 
@@ -146,6 +149,28 @@ describe Jsend do
       end
 
       xit 'Does not parses a message with non allowed fields' do
+
+        json_to_parse = {
+            status: JSend::SUCCESS,
+            data: data
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
+
+      end
+
+      it 'Does not parses incomplete messages' do
+
+        json_to_parse = {
+            status: JSend::SUCCESS,
+            # data: data
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
 
       end
 

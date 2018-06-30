@@ -1,3 +1,5 @@
+require_relative 'exceptions'
+
 module JSend
 
   class Parser
@@ -11,7 +13,7 @@ module JSend
       when JSend::FAIL
         # FailResponse
       else
-        raise 'Unsupported type of message'
+        raise JSend::InvalidType
       end
     end
 
@@ -20,6 +22,7 @@ module JSend
   class SuccessMessageParser
 
     def self.response_from_hash(hash)
+      raise InvalidData if hash['data'].nil?
       SucessResponse.new hash['data']
     end
 
