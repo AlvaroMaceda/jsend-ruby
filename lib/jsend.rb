@@ -3,10 +3,10 @@
 require 'jsend/version'
 require 'json'
 
-require_relative 'jsend/success_response'
-require_relative 'jsend/fail_response'
-require_relative 'jsend/error_response'
-require_relative 'jsend/parser'
+require_relative 'jsend/responses/success_response'
+require_relative 'jsend/responses/fail_response'
+require_relative 'jsend/responses/error_response'
+require_relative 'jsend/parser/parser'
 
 module JSend
 

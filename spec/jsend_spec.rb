@@ -148,11 +148,12 @@ describe Jsend do
         expect(jsend_message.data).to eq(expected_data)
       end
 
-      xit 'Does not parses a message with non allowed fields' do
+      it 'Does not parses a message with non allowed fields' do
 
         json_to_parse = {
             status: JSend::SUCCESS,
-            data: data
+            data: data,
+            asereje: 'deje'
         }.to_json
 
         expect {

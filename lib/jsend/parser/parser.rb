@@ -1,4 +1,5 @@
 require_relative 'exceptions'
+require_relative 'success_message_parser'
 
 module JSend
 
@@ -19,14 +20,9 @@ module JSend
 
   end
 
-  class SuccessMessageParser
 
-    def self.response_from_hash(hash)
-      raise InvalidData if hash['data'].nil?
-      SucessResponse.new hash['data']
-    end
 
-  end
+
 
 =begin
 
@@ -52,6 +48,9 @@ module JSend
 
 
   private_constant :Parser
+  private_constant :SuccessMessageParser
+  # private_constant :ErrorMessageParser
+  # private_constant :FailMessageParser
 
 end
 
