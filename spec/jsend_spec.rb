@@ -166,7 +166,6 @@ describe Jsend do
 
         json_to_parse = {
             status: JSend::SUCCESS,
-            # data: data
         }.to_json
 
         expect {
@@ -179,13 +178,12 @@ describe Jsend do
 
     context 'Failure messages' do
 
-      xit 'Parses from JSON' do
+      it 'Parses from JSON' do
 
-        message = {
+        json_to_parse = {
             status: JSend::FAIL,
             data: data
-        }
-        json_to_parse = message.to_json
+        }.to_json
         expected_data = JSON.parse(data.to_json)
 
         jsend_message = JSend.parse(json_to_parse)
@@ -194,21 +192,46 @@ describe Jsend do
         expect(jsend_message.data).to eq(expected_data)
       end
 
+      it 'Does not parses a message with non allowed fields' do
+
+        json_to_parse = {
+            status: JSend::FAIL,
+            data: data,
+            code: 555
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
+
+      end
+
+      it 'Does not parses incomplete messages' do
+
+        json_to_parse = {
+            status: JSend::FAIL,
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
+
+      end
+
     end
 
     context 'Error messages' do
 
-      xit 'Parses from JSON' do
+      it 'Parses from JSON' do
         error_message = 'Your AWS instances let you in bankrupcy'
         error_code = -987
 
-        message = {
+        json_to_parse = {
             status: JSend::ERROR,
             data: data,
             code: error_code,
             message: error_message
-        }
-        json_to_parse = message.to_json
+        }.to_json
         expected_data = JSON.parse(data.to_json)
 
         jsend_message = JSend.parse(json_to_parse)
@@ -217,6 +240,34 @@ describe Jsend do
         expect(jsend_message.code).to eq(error_code)
         expect(jsend_message.message).to eq(error_message)
         expect(jsend_message.data).to eq(expected_data)
+
+      end
+
+      it 'Does not parses a message with non allowed fields' do
+
+        json_to_parse = {
+            status: JSend::ERROR,
+            message: 'Jorrrl',
+            asereje: 'deje'
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
+
+      end
+
+      it 'Does not parses incomplete messages' do
+
+        json_to_parse = {
+            status: JSend::ERROR,
+            data: 'Some data',
+            code: 6555
+        }.to_json
+
+        expect {
+          JSend.parse(json_to_parse)
+        }.to raise_exception JSend::InvalidData
 
       end
 

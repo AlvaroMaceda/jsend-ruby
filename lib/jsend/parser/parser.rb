@@ -1,5 +1,7 @@
 require_relative 'exceptions'
 require_relative 'success_message_parser'
+require_relative 'error_message_parser'
+require_relative 'fail_message_parser'
 
 module JSend
 
@@ -10,9 +12,9 @@ module JSend
       when JSend::SUCCESS
         SuccessMessageParser
       when JSend::ERROR
-        # ErrorResponse
+        ErrorMessageParser
       when JSend::FAIL
-        # FailResponse
+        FailMessageParser
       else
         raise JSend::InvalidType
       end
@@ -20,37 +22,10 @@ module JSend
 
   end
 
-
-
-
-
-=begin
-
-  class ErrorMessageParser
-
-    def self.response_from_hash(hash)
-      SucessResponse.new hash['data']
-    end
-
-  end
-
-  class FailMessageParser
-
-    def self.response_from_hash(hash)
-      SucessResponse.new hash['data']
-    end
-
-  xend
-
-=end
-
-
-
-
   private_constant :Parser
   private_constant :SuccessMessageParser
-  # private_constant :ErrorMessageParser
-  # private_constant :FailMessageParser
+  private_constant :ErrorMessageParser
+  private_constant :FailMessageParser
 
 end
 
