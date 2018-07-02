@@ -1,8 +1,8 @@
-# Jsend
+# JSend
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jsend`. To experiment with that code, run `bin/console` for an interactive prompt.
+JSend facilitates a simple jsend implementation for ruby. You can generate and parse JSend messages
 
-TODO: Delete this and the text above, and describe your gem
+For more info about JSend refer to https://labs.omniti.com/labs/jsend
 
 ## Installation
 
@@ -22,7 +22,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You can generate sucess, error and failure messages:
+```ruby
+JSend.success(banana: 'gross michel').to_json
+```
+This will generate the following string:
+```
+"{\"status\":\"success\",\"data\":{\"hola\":\"caracola\"}}"
+```
+Corresponding to this JSon:
+```
+{
+  "status":"success",
+  "data": {"banana":"gross michel"}
+}
+```
+
+It works the same way with failure messages:
+```ruby
+JSend.fail(data)
+```
+
+And error messages, with or withouth error code and data
+```ruby
+jsend_message = JSend.error(error_message)
+jsend_message = JSend.error(error_message, error_code, data)
+```
+
+Unlike other libraries, you can also parse JSon strings. It will raise an error if the string can't be parsed to a Jsend message:
+```ruby
+response = JSend.parse(last_response.body)
+expect(response.success?).to eq(true)
+puts response.data
+```
 
 ## Development
 
@@ -32,7 +64,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jsend. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/amaceda/jsend-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

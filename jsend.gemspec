@@ -6,7 +6,7 @@ require 'jsend/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'jsend'
-  spec.version       = Jsend::VERSION
+  spec.version       = JSend::VERSION
   spec.authors       = ['Alvaro Maceda']
   spec.email         = ['alvaro@alvaromaceda.es']
 
@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.required_ruby_version = ['>=2.0.0']
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"

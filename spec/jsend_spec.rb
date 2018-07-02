@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe Jsend do
+describe JSend do
 
   it "has a version number" do
-    expect(Jsend::VERSION).not_to be nil
+    expect(JSend::VERSION).not_to be nil
   end
 
   let(:data) {
